@@ -1,0 +1,54 @@
+const Ayarlar = require("../ayarlar.json");
+const Discord = require("discord.js");
+const Data = require("quick.db");
+
+exports.run = async (client, message, args) => {
+
+/*_____________________________________________________________________________*/
+let prefix = await Data.fetch(`prefix_${message.guild.id}`);
+if (prefix == null) prefix = "!"; //Bu Araya Botunuzun Kendi Prefixsini Giriniz
+/*_____________________________________________________________________________*/
+
+ const bot = new Discord.MessageEmbed() //Embedin v12 Tanımı
+ 
+.setTimestamp() //Alt Kısıma Zamanı Atar
+.setThumbnail(message.author.avatarURL({ dynamic: true, format: "png", size: 1024 })) //Sağ Üstte Kullanıcının Avataraını Atar
+.setFooter(`© 2021 PEEPO NUKED| ${"v" + Discord.version} | ${prefix}invite`) //Embedin Aşağısındaki Açıklama Kısmı
+.setColor(`#00ff22`) //Embedin Renk Kısmı 
+.setAuthor(`PEEPO NUKE`, `https://i.hizliresim.com/uoRjtz.png`) //Sol Üste Küçük Avatar Koyar
+.setImage(``) //Menüye Resim Koyar
+.setDescription(`
+・Bot 
+> Prefix : ${prefix}
+> Member : ${message.author} (${message.author.tag})
+・Commands
+> **[${prefix}prefix](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}nuke](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}clear](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}ban](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}kick](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}banlist](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}ad-block open/close](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}slowmode (second)](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}ban-limit (number)](https://discord.gg/JRZarRsCS7)**
+> **[${prefix}unban](https://discord.gg/JRZarRsCS7)**
+
+
+・Link
+> [Bot Invite](https://discord.com/oauth2/authorize?client_id=776330094792015882&scope=bot&permissions=8) | [Discord Server](https://discord.gg/JRZarRsCS7)
+`);
+ 
+message.channel.send(bot); //Mesajın Kanala Gönderme Tanımı
+
+};
+  exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ["help","menü"],
+  permLevel: 0
+};
+exports.help = {
+  name: "help",
+  description:"Botunuzun gelişmiş yardım menüsünü atar.",
+  usage: "{prefix}yardım"
+};
